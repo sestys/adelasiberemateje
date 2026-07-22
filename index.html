@@ -1,70 +1,456 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="cs" data-lang="cs">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Adéla &amp; Matěj — 3. října 2026</title>
-  <meta name="description" content="Budeme se brát! Adéla & Matěj, 3. října 2026.">
+  <meta name="description" content="Budeme se brát! Adéla & Matěj, 3. října 2026, Cidrerie Kliment, Dobřichovice.">
   <meta property="og:title" content="Adéla & Matěj — 3. října 2026">
-  <meta property="og:description" content="Budeme se brát! Více informací brzy.">
+  <meta property="og:description" content="Budeme se brát! Vše, co potřebujete vědět o naší svatbě.">
   <meta property="og:image" content="https://adelasiberemateje.cz/assets/invitation-1600.jpg">
   <meta property="og:url" content="https://adelasiberemateje.cz/">
   <meta property="og:type" content="website">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🧡%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #eae4de;
+      --ink: #43403e;
+      --orange: #dd7046;
+      --orange-soft: #e9a284;
+    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body {
-      background: #eae5df;
-      min-height: 100%;
-    }
+    html { scroll-behavior: smooth; }
     body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 0 0 3rem;
-    }
-    main {
-      width: 100%;
-      max-width: 640px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    img.invitation {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    p.coming-soon {
+      background: var(--bg);
+      color: var(--ink);
       font-family: "Shantell Sans", cursive;
+      font-weight: 400;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    /* ---------- language switch ---------- */
+    html[data-lang="cs"] .en { display: none !important; }
+    html[data-lang="en"] .cs { display: none !important; }
+    .topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 1rem;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(6px);
+      z-index: 50;
+    }
+    .topbar .mono {
       font-weight: 700;
-      font-size: clamp(1.1rem, 3.5vw, 1.5rem);
       letter-spacing: 0.08em;
-      color: #3e3939;
-      text-transform: uppercase;
+      color: var(--orange);
+      text-decoration: none;
+      font-size: 1rem;
+    }
+    .lang-switch {
+      display: flex;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      overflow: hidden;
+      background: var(--bg);
+    }
+    .lang-switch button {
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      border: 0;
+      background: transparent;
+      color: var(--ink);
+      padding: 0.25rem 0.7rem;
+      cursor: pointer;
+    }
+    .lang-switch button.active {
+      background: var(--orange);
+      color: #fff;
+    }
+    /* ---------- shared ---------- */
+    section { position: relative; }
+    .wrap {
+      width: 100%;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 4.5rem 1.4rem 0;
       text-align: center;
-      margin-top: 1.5rem;
-      padding: 0 1rem;
     }
-    p.coming-soon .smiley {
-      text-transform: none;
-      letter-spacing: 0;
-      color: #dd7046;
+    h2 {
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--orange);
+      font-size: clamp(1.7rem, 5.5vw, 2.4rem);
+      line-height: 1.25;
+      margin-bottom: 1.2rem;
     }
+    p { margin-bottom: 0.9rem; }
+    .doodle { position: absolute; pointer-events: none; user-select: none; }
+    .btn {
+      display: inline-block;
+      font-family: inherit;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #fff;
+      background: var(--orange);
+      border-radius: 999px;
+      padding: 0.7rem 1.6rem;
+      margin-top: 0.6rem;
+      transition: transform 0.15s ease;
+    }
+    .btn:hover { transform: rotate(-2deg) scale(1.04); }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+    /* ---------- hero ---------- */
+    .hero {
+      position: relative;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 5.5rem 1rem 0;
+      text-align: center;
+      overflow: visible;
+    }
+    .hero .kicker {
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: clamp(1rem, 3.4vw, 1.5rem);
+      margin-left: 12%;
+      margin-bottom: 0.4rem;
+    }
+    .hero h1 {
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--orange);
+      font-size: clamp(3.2rem, 14vw, 7rem);
+      line-height: 1.02;
+      letter-spacing: 0.01em;
+    }
+    .hero h1 .l1 { display: block; margin-right: 18%; }
+    .hero h1 .l2 { display: block; margin-left: 6%; }
+    .hero .date {
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: clamp(1.2rem, 4.5vw, 1.9rem);
+      margin: 1.2rem 0 0;
+      margin-right: 28%;
+    }
+    .hero .d-cake   { width: clamp(70px, 12vw, 110px); top: 3.8rem; left: 14%; transform: rotate(-4deg); }
+    .hero .d-dancers{ width: clamp(110px, 24vw, 210px); top: 13%; right: 4%; }
+    .hero .d-bow    { width: clamp(60px, 10vw, 90px); top: 34%; left: 2%; transform: rotate(-8deg); }
+    .hero .d-disco  { width: clamp(60px, 11vw, 100px); top: 40%; right: 14%; }
+    .hero .d-sparkle{ width: clamp(22px, 4vw, 34px); bottom: 26%; right: 20%; }
+    .hero .d-bear   { width: clamp(60px, 11vw, 100px); bottom: 14%; right: -6px; }
+    .hero .couple {
+      display: block;
+      width: min(78%, 480px);
+      margin: 2.2rem auto 0;
+      height: auto;
+    }
+    /* ---------- intro ---------- */
+    .intro p { font-size: clamp(1rem, 2.9vw, 1.15rem); }
+    /* ---------- when & where ---------- */
+    .where .venue {
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--orange);
+      font-size: clamp(1.15rem, 3.6vw, 1.5rem);
+      line-height: 1.5;
+      margin: 1rem 0 0.4rem;
+    }
+    .where .d-plate { width: clamp(90px, 16vw, 150px); top: 0.5rem; right: 2%; transform: rotate(6deg); }
+    .where .d-sparkles { width: clamp(40px, 7vw, 60px); top: 2rem; left: 5%; }
+    /* ---------- timeline ---------- */
+    .timeline { padding-bottom: 1rem; }
+    .timeline .slot { margin: 2.6rem 0; }
+    .timeline .time {
+      font-weight: 700;
+      color: var(--orange);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: clamp(1.5rem, 5vw, 2.1rem);
+      line-height: 1.2;
+    }
+    .timeline .what {
+      font-weight: 700;
+      color: var(--orange);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: clamp(1.15rem, 4vw, 1.6rem);
+      line-height: 1.35;
+    }
+    .timeline .d-heart   { width: clamp(90px, 16vw, 150px); top: 22%; left: 3%; }
+    .timeline .d-plate2  { width: clamp(90px, 16vw, 150px); top: 52%; right: 3%; transform: rotate(-3deg); }
+    .timeline .d-cutlery { width: clamp(90px, 16vw, 160px); bottom: 4%; left: 4%; transform: rotate(-10deg); }
+    .timeline .d-cakebig { width: clamp(80px, 14vw, 130px); bottom: 0; right: 6%; }
+    /* ---------- info cards ---------- */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.1rem;
+      margin-top: 1.6rem;
+      text-align: center;
+    }
+    .card {
+      border: 2.5px solid var(--ink);
+      border-radius: 22px;
+      padding: 1.4rem 1.2rem 1.5rem;
+      background: color-mix(in srgb, #fff 32%, var(--bg));
+    }
+    .card:nth-child(odd) { transform: rotate(-0.7deg); }
+    .card:nth-child(even) { transform: rotate(0.6deg); }
+    .card img { height: 64px; width: auto; margin-bottom: 0.7rem; }
+    .card h3 {
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--orange);
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
+    }
+    .card p { font-size: 0.95rem; margin-bottom: 0.3rem; }
+    .soon { font-style: italic; opacity: 0.75; }
+    /* ---------- gallery ---------- */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 1.8rem;
+      padding-bottom: 0.5rem;
+    }
+    .gallery a {
+      display: block;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 3px solid transparent;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .gallery a:nth-child(3n)   { transform: rotate(1.2deg); }
+    .gallery a:nth-child(3n+1) { transform: rotate(-1.1deg); }
+    .gallery a:hover { transform: rotate(0deg) scale(1.03); border-color: var(--orange); }
+    .gallery img {
+      display: block;
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+    /* ---------- contact + closing ---------- */
+    .contact a { color: var(--orange); font-weight: 700; }
+    .closing { padding-bottom: 0; }
+    .closing .big {
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--orange);
+      font-size: clamp(2rem, 8vw, 3.6rem);
+      line-height: 1.15;
+      margin: 0.5rem 0 1.5rem;
+    }
+    .closing img.dancers { width: min(56%, 300px); margin: 0 auto; display: block; }
+    footer {
+      margin-top: 3rem;
+      background: var(--orange);
+      color: #fff;
+      text-align: center;
+      padding: 1.6rem 1rem 1.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 0.95rem;
+    }
+    footer .small { display: block; font-weight: 400; text-transform: none; letter-spacing: 0.02em; font-size: 0.85rem; margin-top: 0.3rem; opacity: 0.9; }
   </style>
 </head>
 <body>
-  <main>
-    <img class="invitation"
-         src="assets/invitation-1600.jpg"
-         srcset="assets/invitation-900.jpg 900w, assets/invitation-1600.jpg 1600w"
-         sizes="(max-width: 640px) 100vw, 640px"
-         alt="Svatební oznámení — Adéla a Matěj se budou brát 3. října 2026"
+
+  <nav class="topbar">
+    <a class="mono" href="#top">A&nbsp;&amp;&nbsp;M</a>
+    <div class="lang-switch" role="group" aria-label="Jazyk / Language">
+      <button id="btn-cs" class="active" onclick="setLang('cs')" aria-label="Česky">CZ</button>
+      <button id="btn-en" onclick="setLang('en')" aria-label="English">EN</button>
+    </div>
+  </nav>
+
+  <!-- ================= HERO ================= -->
+  <header class="hero" id="top">
+    <img class="doodle d-cake" src="assets/doodles/doodle-cake-small.png" alt="">
+    <img class="doodle d-dancers" src="assets/doodles/doodle-dancers.png" alt="">
+    <img class="doodle d-bow" src="assets/doodles/doodle-bow.png" alt="">
+    <img class="doodle d-disco" src="assets/doodles/doodle-disco.png" alt="">
+    <img class="doodle d-sparkle" src="assets/doodles/doodle-sparkle.png" alt="">
+    <img class="doodle d-bear" src="assets/doodles/doodle-bear.png" alt="">
+
+    <p class="kicker"><span class="cs">Budeme se brát</span><span class="en">We're getting married</span></p>
+    <h1><span class="l1">Adéla</span><span class="l2">&amp; Matěj</span></h1>
+    <p class="date"><span class="cs">3.&nbsp;října 2026</span><span class="en">October&nbsp;3, 2026</span></p>
+
+    <img class="couple" src="assets/couple.jpg"
+         alt="Adéla a Matěj"
          fetchpriority="high">
-    <p class="coming-soon">More is coming soon <span class="smiley">:)</span></p>
-  </main>
+  </header>
+
+  <!-- ================= INTRO ================= -->
+  <section class="intro">
+    <div class="wrap reveal">
+      <h2><span class="cs">Ahoj!</span><span class="en">Hello!</span></h2>
+      <p class="cs">Moc se těšíme, že s&nbsp;námi prožijete jeden výjimečný den&nbsp;— náš svatební. Obřad i&nbsp;oslava proběhnou 3.&nbsp;října&nbsp;2026 v&nbsp;Cidrerii Kliment v&nbsp;Dobřichovicích. Tady najdete vše, co potřebujete vědět, abyste si to s&nbsp;námi mohli užít naplno.</p>
+      <p class="en">We can't wait to share one very special day with you&nbsp;— our wedding day. The ceremony and the celebration will take place on October&nbsp;3,&nbsp;2026 at Cidrerie Kliment in Dobřichovice. Here you'll find everything you need to know to enjoy it with us to the fullest.</p>
+    </div>
+  </section>
+
+  <!-- ================= WHEN & WHERE ================= -->
+  <section class="where">
+    <div class="wrap reveal">
+      <img class="doodle d-plate" src="assets/doodles/doodle-plate.png" alt="">
+      <img class="doodle d-sparkles" src="assets/doodles/doodle-sparkles2.png" alt="">
+      <h2><span class="cs">Kdy a kde?</span><span class="en">When &amp; where?</span></h2>
+      <p class="cs">3.&nbsp;října 2026, příjezd hostů mezi 12:30&nbsp;a&nbsp;13:30.</p>
+      <p class="en">October&nbsp;3, 2026 — guests arrive between 12:30&nbsp;and&nbsp;1:30&nbsp;pm.</p>
+      <p class="venue">Cidrerie Kliment<br>5.&nbsp;května 1187<br>252&nbsp;29 Dobřichovice</p>
+      <a class="btn" href="https://maps.google.com/?q=Cidrerie+Kliment,+5.+kv%C4%9Btna+1187,+Dob%C5%99ichovice" target="_blank" rel="noopener">
+        <span class="cs">Otevřít mapu</span><span class="en">Open map</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= TIMELINE ================= -->
+  <section class="timeline">
+    <div class="wrap reveal">
+      <img class="doodle d-heart" src="assets/doodles/doodle-heartcouple.png" alt="">
+      <img class="doodle d-plate2" src="assets/doodles/doodle-plate.png" alt="">
+      <img class="doodle d-cutlery" src="assets/doodles/doodle-cutlery.png" alt="">
+      <img class="doodle d-cakebig" src="assets/doodles/doodle-cake-big.png" alt="">
+      <h2><span class="cs">Harmonogram</span><span class="en">Schedule</span></h2>
+
+      <div class="slot">
+        <p class="time">12:30&nbsp;–&nbsp;13:30</p>
+        <p class="what"><span class="cs">Příjezd hostů</span><span class="en">Guests arrive</span></p>
+      </div>
+      <div class="slot">
+        <p class="time">14:00</p>
+        <p class="what"><span class="cs">Obřad</span><span class="en">Ceremony</span></p>
+      </div>
+      <div class="slot">
+        <p class="time">15:00</p>
+        <p class="what"><span class="cs">Jídlo, zábava a&nbsp;tak</span><span class="en">Food, fun &amp;&nbsp;so&nbsp;on</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GOOD TO KNOW ================= -->
+  <section class="info">
+    <div class="wrap reveal">
+      <h2><span class="cs">Dobré vědět</span><span class="en">Good to know</span></h2>
+      <div class="cards">
+        <div class="card">
+          <img src="assets/doodles/doodle-bear.png" alt="">
+          <h3><span class="cs">Ubytování</span><span class="en">Accommodation</span></h3>
+          <p class="cs soon">Podrobnosti doplníme brzy.</p>
+          <p class="en soon">Details coming soon.</p>
+        </div>
+        <div class="card">
+          <img src="assets/doodles/doodle-bow.png" alt="">
+          <h3><span class="cs">Dary</span><span class="en">Gifts</span></h3>
+          <p class="cs">Největším darem pro nás bude, že svatební den strávíte s&nbsp;námi.</p>
+          <p class="en">The greatest gift for us is that you'll spend the day with&nbsp;us.</p>
+          <p class="cs soon">Podrobnosti doplníme brzy.</p>
+          <p class="en soon">Details coming soon.</p>
+        </div>
+        <div class="card">
+          <img src="assets/doodles/doodle-sparkles2.png" alt="">
+          <h3>Dresscode</h3>
+          <p class="cs">Oblečte, v&nbsp;čem se budete cítit dobře a&nbsp;v&nbsp;čem si zatančíte.</p>
+          <p class="en">Wear whatever makes you feel good — and lets you dance.</p>
+          <p class="cs soon">Podrobnosti doplníme brzy.</p>
+          <p class="en soon">Details coming soon.</p>
+        </div>
+        <div class="card">
+          <img src="assets/doodles/doodle-cake-small.png" alt="">
+          <h3><span class="cs">Doplňující info</span><span class="en">More info</span></h3>
+          <p class="cs soon">Vše ostatní sem postupně doplníme.</p>
+          <p class="en soon">We'll keep adding everything else here.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GALLERY ================= -->
+  <section class="us">
+    <div class="wrap reveal" style="max-width: 900px;">
+      <h2><span class="cs">My dva</span><span class="en">The two of us</span></h2>
+      <div class="gallery">
+        <a href="assets/photos/img_8508.jpg" target="_blank"><img loading="lazy" src="assets/photos/img_8508.jpg" alt=""></a>
+        <a href="assets/photos/img_0053.jpg" target="_blank"><img loading="lazy" src="assets/photos/img_0053.jpg" alt=""></a>
+        <a href="assets/photos/img_1286.jpg" target="_blank"><img loading="lazy" src="assets/photos/img_1286.jpg" alt=""></a>
+        <a href="assets/photos/img_7876.jpg" target="_blank"><img loading="lazy" src="assets/photos/img_7876.jpg" alt=""></a>
+        <a href="assets/photos/img_1308.jpg" target="_blank"><img loading="lazy" src="assets/photos/img_1308.jpg" alt=""></a>
+        <a href="assets/photos/img_7957.jpg" target="_blank"><img loading="lazy" src="assets/photos/img_7957.jpg" alt=""></a>
+        <a href="assets/photos/img_4551.jpg" target="_blank"><img loading="lazy" src="assets/photos/img_4551.jpg" alt=""></a>
+        <a href="assets/photos/img_7361.jpg" target="_blank"><img loading="lazy" src="assets/photos/img_7361.jpg" alt=""></a>
+        <a href="assets/photos/img_0780.jpg" target="_blank"><img loading="lazy" src="assets/photos/img_0780.jpg" alt=""></a>
+        <a href="assets/photos/img_6793.jpg" target="_blank"><img loading="lazy" src="assets/photos/img_6793.jpg" alt=""></a>
+        <a href="assets/photos/img_0796.jpg" target="_blank"><img loading="lazy" src="assets/photos/img_0796.jpg" alt=""></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section class="contact">
+    <div class="wrap reveal">
+      <h2><span class="cs">Kontakt</span><span class="en">Contact</span></h2>
+      <p class="cs">Máte otázku? Napište nám na
+        <a href="mailto:matej.sestak@gmail.com">matej.sestak@gmail.com</a>.</p>
+      <p class="en">Got a question? Drop us a line at
+        <a href="mailto:matej.sestak@gmail.com">matej.sestak@gmail.com</a>.</p>
+    </div>
+  </section>
+
+  <!-- ================= CLOSING ================= -->
+  <section class="closing">
+    <div class="wrap reveal">
+      <p class="big"><span class="cs">Těšíme se na&nbsp;vás!</span><span class="en">We can't wait to&nbsp;see&nbsp;you!</span></p>
+      <img class="dancers" src="assets/doodles/doodle-dancers.png" alt="">
+    </div>
+    <footer>
+      Adéla&nbsp;&amp;&nbsp;Matěj — 3.&nbsp;10.&nbsp;2026
+      <span class="small">adelasiberemateje.cz</span>
+    </footer>
+  </section>
+
+  <script>
+    function setLang(lang) {
+      document.documentElement.setAttribute('data-lang', lang);
+      document.documentElement.setAttribute('lang', lang);
+      document.getElementById('btn-cs').classList.toggle('active', lang === 'cs');
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      try { localStorage.setItem('lang', lang); } catch (e) {}
+    }
+    try {
+      var fromUrl = new URLSearchParams(location.search).get('lang');
+      var saved = fromUrl || localStorage.getItem('lang');
+      if (saved === 'en') setLang('en');
+    } catch (e) {}
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+  </script>
 </body>
 </html>
