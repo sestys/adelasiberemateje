@@ -249,6 +249,49 @@
       height: 220px;
       object-fit: cover;
     }
+    /* ---------- lightbox ---------- */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      background: rgba(45, 41, 39, 0.88);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      cursor: zoom-out;
+    }
+    .lightbox.open { opacity: 1; pointer-events: auto; }
+    .lightbox img {
+      max-width: min(92vw, 1100px);
+      max-height: 86vh;
+      border-radius: 14px;
+      border: 4px solid var(--bg);
+      box-shadow: 0 12px 50px rgba(0, 0, 0, 0.45);
+      transform: scale(0.96);
+      transition: transform 0.25s ease;
+    }
+    .lightbox.open img { transform: scale(1); }
+    .lightbox .close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 2.6rem;
+      height: 2.6rem;
+      border: 0;
+      border-radius: 50%;
+      background: var(--orange);
+      color: #fff;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 1.3rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .gallery a { cursor: zoom-in; }
     /* ---------- contact + closing ---------- */
     .contact a { color: var(--orange); font-weight: 700; }
     .closing { padding-bottom: 0; }
@@ -307,8 +350,8 @@
   <section class="intro">
     <div class="wrap reveal">
       <h2><span class="cs">Ahoj!</span><span class="en">Hello!</span></h2>
-      <p class="cs">Moc se těšíme, že s&nbsp;námi prožijete jeden výjimečný den&nbsp;— náš svatební. Obřad i&nbsp;oslava proběhnou 3.&nbsp;října&nbsp;2026 v&nbsp;Cidrerii Kliment v&nbsp;Dobřichovicích. Tady najdete vše, co potřebujete vědět, abyste si to s&nbsp;námi mohli užít naplno.</p>
-      <p class="en">We can't wait to share one very special day with you&nbsp;— our wedding day. The ceremony and the celebration will take place on October&nbsp;3,&nbsp;2026 at Cidrerie Kliment in Dobřichovice. Here you'll find everything you need to know to enjoy it with us to the fullest.</p>
+      <p class="cs">Moc se těšíme, že s&nbsp;námi prožijete náš svatební. Obřad i&nbsp;oslava proběhnou 3.&nbsp;října&nbsp;2026 v&nbsp;Cidrerii Kliment v&nbsp;Dobřichovicích. Tady najdete vše, co potřebujete vědět, abyste si to s&nbsp;námi mohli užít naplno.</p>
+      <p class="en">We can't wait to share our wedding day with you. The ceremony and the celebration will take place on October&nbsp;3,&nbsp;2026 at Cidrerie Kliment in Dobřichovice. Here you'll find everything you need to know to enjoy it with us to the fullest.</p>
     </div>
   </section>
 
@@ -393,17 +436,14 @@
     <div class="wrap reveal" style="max-width: 900px;">
       <h2><span class="cs">My dva</span><span class="en">The two of us</span></h2>
       <div class="gallery">
-        <a href="assets/photos/img_8508.jpg" target="_blank"><img loading="lazy" src="assets/photos/img_8508.jpg" alt=""></a>
-        <a href="assets/photos/img_0053.jpg" target="_blank"><img loading="lazy" src="assets/photos/img_0053.jpg" alt=""></a>
-        <a href="assets/photos/img_1286.jpg" target="_blank"><img loading="lazy" src="assets/photos/img_1286.jpg" alt=""></a>
-        <a href="assets/photos/img_7876.jpg" target="_blank"><img loading="lazy" src="assets/photos/img_7876.jpg" alt=""></a>
-        <a href="assets/photos/img_1308.jpg" target="_blank"><img loading="lazy" src="assets/photos/img_1308.jpg" alt=""></a>
-        <a href="assets/photos/img_7957.jpg" target="_blank"><img loading="lazy" src="assets/photos/img_7957.jpg" alt=""></a>
-        <a href="assets/photos/img_4551.jpg" target="_blank"><img loading="lazy" src="assets/photos/img_4551.jpg" alt=""></a>
-        <a href="assets/photos/img_7361.jpg" target="_blank"><img loading="lazy" src="assets/photos/img_7361.jpg" alt=""></a>
-        <a href="assets/photos/img_0780.jpg" target="_blank"><img loading="lazy" src="assets/photos/img_0780.jpg" alt=""></a>
-        <a href="assets/photos/img_6793.jpg" target="_blank"><img loading="lazy" src="assets/photos/img_6793.jpg" alt=""></a>
-        <a href="assets/photos/img_0796.jpg" target="_blank"><img loading="lazy" src="assets/photos/img_0796.jpg" alt=""></a>
+        <a href="assets/photos/img_0053.jpg"><img loading="lazy" src="assets/photos/img_0053.jpg" alt=""></a>
+        <a href="assets/photos/img_1286.jpg"><img loading="lazy" src="assets/photos/img_1286.jpg" alt=""></a>
+        <a href="assets/photos/img_7876.jpg"><img loading="lazy" src="assets/photos/img_7876.jpg" alt=""></a>
+        <a href="assets/photos/img_1308.jpg"><img loading="lazy" src="assets/photos/img_1308.jpg" alt=""></a>
+        <a href="assets/photos/img_7957.jpg"><img loading="lazy" src="assets/photos/img_7957.jpg" alt=""></a>
+        <a href="assets/photos/img_4551.jpg"><img loading="lazy" src="assets/photos/img_4551.jpg" alt=""></a>
+        <a href="assets/photos/img_7361.jpg"><img loading="lazy" src="assets/photos/img_7361.jpg" alt=""></a>
+        <a href="assets/photos/img_0796.jpg"><img loading="lazy" src="assets/photos/img_0796.jpg" alt=""></a>
       </div>
     </div>
   </section>
@@ -431,6 +471,11 @@
     </footer>
   </section>
 
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto">
+    <img id="lightbox-img" src="" alt="">
+    <button class="close" type="button" aria-label="Zavřít / Close">&times;</button>
+  </div>
+
   <script>
     function setLang(lang) {
       document.documentElement.setAttribute('data-lang', lang);
@@ -451,6 +496,25 @@
       });
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+
+    var lightbox = document.getElementById('lightbox');
+    var lightboxImg = document.getElementById('lightbox-img');
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.querySelectorAll('.gallery a').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        lightboxImg.src = a.getAttribute('href');
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+    lightbox.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeLightbox();
+    });
   </script>
 </body>
 </html>
