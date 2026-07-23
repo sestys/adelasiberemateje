@@ -249,6 +249,64 @@
       height: 220px;
       object-fit: cover;
     }
+    /* ---------- rsvp form ---------- */
+    .rsvp .form-card {
+      border: 2.5px solid var(--ink);
+      border-radius: 22px;
+      background: color-mix(in srgb, #fff 32%, var(--bg));
+      padding: 1.8rem 1.4rem 2rem;
+      margin-top: 1.6rem;
+      text-align: left;
+    }
+    .rsvp .q { margin-bottom: 1.6rem; }
+    .rsvp .q-label {
+      display: block;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--orange);
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
+    }
+    .rsvp .opt {
+      display: flex;
+      align-items: baseline;
+      gap: 0.55rem;
+      margin: 0.3rem 0;
+      cursor: pointer;
+    }
+    .rsvp .opt input {
+      accent-color: var(--orange);
+      width: 1.05rem;
+      height: 1.05rem;
+      flex: none;
+      position: relative;
+      top: 0.15rem;
+      cursor: pointer;
+    }
+    .rsvp input[type="text"],
+    .rsvp textarea {
+      width: 100%;
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--ink);
+      background: var(--bg);
+      border: 2px solid var(--ink);
+      border-radius: 12px;
+      padding: 0.55rem 0.8rem;
+      margin-top: 0.3rem;
+    }
+    .rsvp input[type="text"]:focus,
+    .rsvp textarea:focus {
+      outline: 2px solid var(--orange);
+      outline-offset: 1px;
+      border-color: var(--orange);
+    }
+    .rsvp textarea { min-height: 110px; resize: vertical; }
+    .rsvp .btn { border: 0; cursor: pointer; font-size: 1rem; }
+    .rsvp .form-status { margin-top: 1rem; font-weight: 700; display: none; }
+    .rsvp .form-status.ok { display: block; color: var(--orange); }
+    .rsvp .form-status.err { display: block; color: #b3402a; }
     /* ---------- lightbox ---------- */
     .lightbox {
       position: fixed;
@@ -427,6 +485,61 @@
     </div>
   </section>
 
+  <!-- ================= RSVP FORM ================= -->
+  <section class="rsvp" id="dotaznik">
+    <div class="wrap reveal">
+      <h2><span class="cs">Dotazník</span><span class="en">A few questions</span></h2>
+      <p class="cs">Abychom všechno připravili co nejlépe, prosíme odpovězte nám na pár otázek.</p>
+      <p class="en">To get everything ready, we'd love your answers to a few quick questions.</p>
+
+      <form class="form-card" id="rsvp-form">
+        <div class="q">
+          <label class="q-label" for="f-name"><span class="cs">Jméno a příjmení</span><span class="en">Full name</span></label>
+          <input type="text" id="f-name" name="Jméno" required
+                 data-ph-cs="Kdo odpovídá?" data-ph-en="Who is answering?" placeholder="Kdo odpovídá?">
+        </div>
+
+        <div class="q">
+          <span class="q-label"><span class="cs">Co budu pít?</span><span class="en">What will I drink?</span></span>
+          <label class="opt"><input type="checkbox" name="Pití" value="Cider"><span>Cider</span></label>
+          <label class="opt"><input type="checkbox" name="Pití" value="Pivo"><span class="cs">Pivo</span><span class="en">Beer</span></label>
+          <label class="opt"><input type="checkbox" name="Pití" value="Víno"><span class="cs">Víno</span><span class="en">Wine</span></label>
+          <label class="opt"><input type="checkbox" name="Pití" value="Něco ostřejšího"><span class="cs">Něco ostřejšího</span><span class="en">Something stronger</span></label>
+          <label class="opt"><input type="checkbox" name="Pití" value="Nealko"><span class="cs">Nealko</span><span class="en">Non-alcoholic drinks</span></label>
+        </div>
+
+        <div class="q">
+          <span class="q-label"><span class="cs">Mám nějaké alergie</span><span class="en">I have allergies</span></span>
+          <label class="opt"><input type="checkbox" name="Alergie" value="Žádné"><span class="cs">Žádné</span><span class="en">None</span></label>
+          <label class="opt"><input type="checkbox" name="Alergie" value="Lepek"><span class="cs">Lepek</span><span class="en">Gluten</span></label>
+          <label class="opt"><input type="checkbox" name="Alergie" value="Laktóza"><span class="cs">Laktóza</span><span class="en">Lactose</span></label>
+          <label class="opt"><input type="checkbox" name="Alergie" value="Ořechy"><span class="cs">Ořechy</span><span class="en">Nuts</span></label>
+          <input type="text" name="Jiné alergie"
+                 data-ph-cs="Jiné — napište nám je sem" data-ph-en="Other — tell us here" placeholder="Jiné — napište nám je sem">
+        </div>
+
+        <div class="q">
+          <span class="q-label"><span class="cs">Ubytování</span><span class="en">Accommodation</span></span>
+          <label class="opt"><input type="radio" name="Ubytování" value="Nepotřebuji"><span class="cs">Nepotřebuji — přijedu i odjedu v den svatby</span><span class="en">I don't need it — arriving and leaving on the day</span></label>
+          <label class="opt"><input type="radio" name="Ubytování" value="Ubytuji se v Praze"><span class="cs">Ubytuji se v Praze</span><span class="en">I'll stay in Prague</span></label>
+          <label class="opt"><input type="radio" name="Ubytování" value="Zařídím si po svém"><span class="cs">Zařídím si ubytování po svém</span><span class="en">I'll arrange my own accommodation</span></label>
+          <label class="opt"><input type="radio" name="Ubytování" value="Ještě nevím"><span class="cs">Ještě nevím</span><span class="en">Not sure yet</span></label>
+        </div>
+
+        <div class="q">
+          <label class="q-label" for="f-note"><span class="cs">Máte něco dalšího, co byste nám chtěli sdělit?</span><span class="en">Anything else you'd like to tell us?</span></label>
+          <textarea id="f-note" name="Vzkaz"
+                    data-ph-cs="Cokoliv vás napadne…" data-ph-en="Anything at all…" placeholder="Cokoliv vás napadne…"></textarea>
+        </div>
+
+        <div style="text-align:center">
+          <button class="btn" type="submit"><span class="cs">Odeslat</span><span class="en">Send</span></button>
+          <p class="form-status" id="form-status"></p>
+        </div>
+      </form>
+    </div>
+  </section>
+
   <!-- ================= GALLERY ================= -->
   <section class="us">
     <div class="wrap reveal" style="max-width: 900px;">
@@ -478,6 +591,9 @@
       document.documentElement.setAttribute('lang', lang);
       document.getElementById('btn-cs').classList.toggle('active', lang === 'cs');
       document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      document.querySelectorAll('[data-ph-cs]').forEach(function (el) {
+        el.placeholder = el.getAttribute(lang === 'en' ? 'data-ph-en' : 'data-ph-cs');
+      });
       try { localStorage.setItem('lang', lang); } catch (e) {}
     }
     try {
@@ -510,6 +626,41 @@
     lightbox.addEventListener('click', closeLightbox);
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') closeLightbox();
+    });
+
+    var rsvpForm = document.getElementById('rsvp-form');
+    var formStatus = document.getElementById('form-status');
+    rsvpForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var en = document.documentElement.getAttribute('data-lang') === 'en';
+      var data = new FormData(rsvpForm);
+      var payload = { _subject: 'Svatební dotazník — nová odpověď', _template: 'table', _captcha: 'false' };
+      data.forEach(function (value, key) {
+        if (!value) return;
+        payload[key] = payload[key] ? payload[key] + ', ' + value : value;
+      });
+      var btn = rsvpForm.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      formStatus.className = 'form-status';
+      fetch('https://formsubmit.co/ajax/matej.sestak@gmail.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function (r) {
+        if (!r.ok) throw new Error(r.status);
+        return r.json();
+      }).then(function () {
+        formStatus.textContent = en ? 'Thank you! Your answers are on their way to us.' : 'Děkujeme! Odpovědi jsou na cestě k nám.';
+        formStatus.className = 'form-status ok';
+        rsvpForm.reset();
+      }).catch(function () {
+        formStatus.textContent = en
+          ? 'Sending failed — please try again later, or email us directly.'
+          : 'Odeslání se nepovedlo — zkuste to prosím později, nebo nám napište e-mail.';
+        formStatus.className = 'form-status err';
+      }).finally(function () {
+        btn.disabled = false;
+      });
     });
   </script>
 </body>
