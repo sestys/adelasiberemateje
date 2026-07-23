@@ -500,6 +500,12 @@
         </div>
 
         <div class="q">
+          <label class="q-label" for="f-email"><span class="cs">E-mail</span><span class="en">Email</span></label>
+          <input type="email" id="f-email" name="E-mail" required
+                 data-ph-cs="Abychom se vám mohli ozvat zpátky" data-ph-en="So we can get back to you" placeholder="Abychom se vám mohli ozvat zpátky">
+        </div>
+
+        <div class="q">
           <span class="q-label"><span class="cs">Co budu pít?</span><span class="en">What will I drink?</span></span>
           <label class="opt"><input type="checkbox" name="Pití" value="Cider"><span>Cider</span></label>
           <label class="opt"><input type="checkbox" name="Pití" value="Pivo"><span class="cs">Pivo</span><span class="en">Beer</span></label>
@@ -523,7 +529,7 @@
           <label class="opt"><input type="radio" name="Ubytování" value="Nepotřebuji"><span class="cs">Nepotřebuji — přijedu i odjedu v den svatby</span><span class="en">I don't need it — arriving and leaving on the day</span></label>
           <label class="opt"><input type="radio" name="Ubytování" value="Ubytuji se v Praze"><span class="cs">Ubytuji se v Praze</span><span class="en">I'll stay in Prague</span></label>
           <label class="opt"><input type="radio" name="Ubytování" value="Zařídím si po svém"><span class="cs">Zařídím si ubytování po svém</span><span class="en">I'll arrange my own accommodation</span></label>
-          <label class="opt"><input type="radio" name="Ubytování" value="Ještě nevím"><span class="cs">Ještě nevím</span><span class="en">Not sure yet</span></label>
+          <label class="opt"><input type="radio" name="Ubytování" value="Pomozte mi s ubytováním"><span class="cs">Pomozte mi prosím s&nbsp;ubytováním</span><span class="en">Please help me with accommodation</span></label>
         </div>
 
         <div class="q">
@@ -642,7 +648,8 @@
       var btn = rsvpForm.querySelector('button[type="submit"]');
       btn.disabled = true;
       formStatus.className = 'form-status';
-      fetch('https://formsubmit.co/ajax/matej.sestak@gmail.com', {
+      if (payload['E-mail']) payload._replyto = payload['E-mail'];
+      fetch('https://formsubmit.co/ajax/matej.sestak+svatba@gmail.com', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(payload)
