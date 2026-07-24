@@ -226,6 +226,27 @@
     }
     .card p { font-size: 0.95rem; margin-bottom: 0.3rem; }
     .soon { font-style: italic; opacity: 0.75; }
+    .copy-acc {
+      font-family: inherit;
+      font-size: inherit;
+      color: inherit;
+      background: none;
+      border: 0;
+      border-bottom: 1.5px dashed var(--orange);
+      padding: 0 0.1rem;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .copy-acc:hover { color: var(--orange); }
+    .copy-acc svg { vertical-align: -0.1em; }
+    .copy-done {
+      color: var(--orange);
+      font-weight: 700;
+      font-size: 0.85rem;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    .copy-done.show { opacity: 1; }
     /* ---------- gallery ---------- */
     .gallery {
       display: grid;
@@ -476,7 +497,11 @@
           <h3><span class="cs">Dary</span><span class="en">Gifts</span></h3>
           <p class="cs">Největším darem pro nás bude, že svatební den strávíte s&nbsp;námi. Není potřeba dávat dar, ale pokud si přejete, můžete nám přispět na dort a&nbsp;svatební cestu.</p>
           <p class="en">The greatest gift for us is that you'll spend our wedding day with&nbsp;us. There's no need to bring a present, but if you'd like to, you can contribute to our cake and honeymoon.</p>
-          <p><span class="cs">Číslo společného účtu:</span><span class="en">Our joint account number:</span> 1837519829/6363</p>
+          <p><span class="cs">Číslo společného účtu:</span><span class="en">Our joint account number:</span>
+            <button class="copy-acc" type="button" data-acc="1837519829/6363" aria-label="Kopírovat číslo účtu / Copy account number">1837519829/6363
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2.5"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+            <span class="copy-done cs">Zkopírováno!</span><span class="copy-done en">Copied!</span></p>
         </div>
         <div class="card">
           <img src="assets/doodles/doodle-sparkles2.png" alt="">
@@ -561,7 +586,7 @@
         <a href="assets/photos/img_0053.jpg"><img loading="lazy" src="assets/photos/img_0053.jpg" alt=""></a>
         <a href="assets/photos/img_1286.jpg"><img loading="lazy" src="assets/photos/img_1286.jpg" alt=""></a>
         <a href="assets/photos/img_7876.jpg"><img loading="lazy" src="assets/photos/img_7876.jpg" alt=""></a>
-        <a href="assets/photos/img_1308.jpg"><img loading="lazy" src="assets/photos/img_1308.jpg" alt=""></a>
+        <a href="assets/photos/img_9026.jpg"><img loading="lazy" src="assets/photos/img_9026.jpg" alt=""></a>
         <a href="assets/photos/img_7957.jpg"><img loading="lazy" src="assets/photos/img_7957.jpg" alt=""></a>
         <a href="assets/photos/img_4551.jpg"><img loading="lazy" src="assets/photos/img_4551.jpg" alt=""></a>
         <a href="assets/photos/img_7361.jpg"><img loading="lazy" src="assets/photos/img_7361.jpg" alt=""></a>
@@ -638,6 +663,31 @@
     lightbox.addEventListener('click', closeLightbox);
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') closeLightbox();
+    });
+
+    var copyTimer;
+    document.querySelectorAll('.copy-acc').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var acc = btn.getAttribute('data-acc');
+        function done() {
+          document.querySelectorAll('.copy-done').forEach(function (s) { s.classList.add('show'); });
+          clearTimeout(copyTimer);
+          copyTimer = setTimeout(function () {
+            document.querySelectorAll('.copy-done').forEach(function (s) { s.classList.remove('show'); });
+          }, 1800);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(acc).then(done);
+        } else {
+          var ta = document.createElement('textarea');
+          ta.value = acc;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          done();
+        }
+      });
     });
 
     var rsvpForm = document.getElementById('rsvp-form');
